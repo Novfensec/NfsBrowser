@@ -52,7 +52,7 @@ bootstrap = "kivy"
 package_name = "com.novfensec.nfsbrowser"
 
 # version_name = "0.1" # change when you want to release a very new version
-version_code = 1 # keep increasing to make an update to existing version_name (bug fixes/security releases)
+version_code = 3 # keep increasing to make an update to existing version_name (bug fixes/security releases)
 
 icon = "src/nfsbrowser/data/nfswebview512.png"
 presplash_color = "#000000"
@@ -82,7 +82,7 @@ ndk_api = 24
 global_tools = true # Set to <false> to use project-local SDK/NDK (./.kivyschool); set to <true> to use shared/global versions (~/.kivyschool or global_tools_path)
 #global_tools_path = "~/.kivyschool" # Override root path when global_tools = true; ignored when global_tools = false
 
-# sdk_path = "C:/Users/karta/AppData/Local/Android/sdk"
+#sdk_path = "C:/Users/karta/AppData/Local/Android/sdk"
 # ndk_path = "/path/to/android-ndk"
 # java_path = "/path/to/jdk"
 
