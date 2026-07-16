@@ -1,0 +1,62 @@
+<SettingsScreen>:
+    CStackLayout:
+        padding: dp(16)
+        spacing: dp(16)
+
+        RoundedBoxLayout:
+            adaptive: [False, True]
+            spacing: dp(16)
+            bg_color: app.layer_01
+            padding: dp(16)
+            radius: self.height/2
+
+            CLabel:
+                text: "Notifications"
+                style: "body_02"
+                pos_hint: {"center_y": 0.5}
+
+            CToggle:
+                pos_hint: {"center_y": 0.5}
+
+        RoundedBoxLayout:
+            adaptive: [False, True]
+            spacing: dp(16)
+            bg_color: app.layer_01
+            padding: dp(16)
+            radius: self.height/2
+
+            CLabel:
+                text: "Dark mode"
+                style: "body_02"
+                pos_hint: {"center_y": 0.5}
+
+            CToggle:
+                pos_hint: {"center_y": 0.5}
+                active: False if (app.theme == "White") else True
+                on_press:
+                    app.theme = "Gray100" if (app.theme == "White") else "White"
+
+        CDivider:
+        
+        ActiveButtonDark:
+            text: "Support Development"
+            icon: "chevron--right"
+            role: "Large Productive"
+            on_press:
+                app.manager_screens.current = "devsupport screen"
+
+        RoundedBoxLayout:
+            adaptive: [True, True]
+            spacing: dp(16)
+            bg_color: app.layer_01
+            padding: dp(16)
+            radius: self.height/2
+
+            CLink:
+                role: "Medium"
+                url: "mailto:novfensec@gmail.com"
+                external: True
+                CLinkText:
+                    text: "novfensec@gmail.com"
+                CLinkIcon:
+                    icon: "arrow--up-right"

@@ -1,0 +1,23 @@
+<SelectionItem>:
+    adaptive: [False, True]
+    padding: [dp(16), dp(8)]
+    selected: checkbox.active
+    selection_color: app.support_info
+
+    canvas.after:
+        Color:
+            rgba: self.selection_color if self.selected else app.transparent
+        Line:
+            cap: "none"
+            width: dp(2)
+            points: [self.x + dp(1), self.y, self.x + dp(1), self.top]
+
+    CLabel:
+        text: root.text
+        halign: "left"
+        valign: "middle"
+        pos_hint: {"center_y": 0.5}
+
+    CCheckbox:
+        id: checkbox
+        pos_hint: {"center_y": 0.5}

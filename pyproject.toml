@@ -1,0 +1,138 @@
+[project]
+name = "nfsbrowser"
+version = "0.1.0"
+description = "NfsBrowser is a browser application."
+readme = "README.md"
+authors = [
+    { name = "Kartavya Shukla", email = "novfensec@protonmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "carbonkivy",
+    "kivy>=2.3.1",
+    "nfswebview",
+    "pyjnius>=1.7.0",
+]
+
+[project.scripts]
+nfsbrowser = "nfsbrowser:main"
+
+[build-system]
+requires = ["uv_build>=0.11.14,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "ksproject",
+]
+
+[tool.uv.sources]
+ksproject = { git = "https://github.com/kivy-school/ksproject", rev = "master" }
+carbonkivy = { git = "https://github.com/CarbonKivy/CarbonKivy", rev = "master" }
+nfswebview = { git = "https://github.com/novfensec/nfswebview", rev = "master" }
+
+[tool.uv]
+index-strategy = "unsafe-best-match"
+find-links = ["./wheelhouse"]
+
+[tool.uv.pip]
+extra-index-url = [
+    "https://pypi-index.psychowaspx.workers.dev/simple",
+    "https://pypi.anaconda.org/kivyschool/simple"
+]
+find-links = ["./wheelhouse"]
+
+#### kivy-school configuration ####
+
+[tool.kivy-school]
+app_name = "Nfs Browser"
+bootstrap = "kivy"
+
+[tool.kivy-school.android]
+package_name = "com.novfensec.nfsbrowser"
+
+# version_name = "0.1" # change when you want to release a very new version
+version_code = 1 # keep increasing to make an update to existing version_name (bug fixes/security releases)
+
+icon = "src/nfsbrowser/data/nfswebview512.png"
+presplash_color = "#000000"
+presplash = "src/nfsbrowser/data/presplash.png"
+# presplash_lottie = "relative to pyproject (json)"
+
+archs = [
+    "arm64-v8a", 
+    # "x86_64" # Uncomment if you want to support x86_64 (emulators), but it will increase APK size
+]
+gradle_dependencies = [
+    # "com.onesignal:OneSignal:[5.6.1, 5.9.99]" # Example of adding OneSignal for push notifications; adjust version as needed
+]
+gradle_plugins = [
+    # 'id("com.google.gms.google-services") version "4.4.2" apply false'
+]
+permissions = [
+# perms
+]
+
+api = 36
+min_api = 24
+sdk = "36"
+ndk = "28c"
+ndk_api = 24
+
+global_tools = true # Set to <false> to use project-local SDK/NDK (./.kivyschool); set to <true> to use shared/global versions (~/.kivyschool or global_tools_path)
+#global_tools_path = "~/.kivyschool" # Override root path when global_tools = true; ignored when global_tools = false
+
+# sdk_path = "C:/Users/karta/AppData/Local/Android/sdk"
+# ndk_path = "/path/to/android-ndk"
+# java_path = "/path/to/jdk"
+
+# # Format 1: Flat list (Destination, Source 1, Source 2)
+# include_files = [
+#     ["gradle/app", "./google-services.json", "./some-other-config.xml"]
+# ]
+
+# # Format 2: Nested list (Destination, [Source 1, Source 2])
+# include_files = [
+#     ["gradle/app", ["./google-services.json", "./some-other-config.xml"]]
+# ]
+
+# pre_build = "path/to/android_prebuild.py"
+# post_build = "path/to/android_prebuild.py"
+
+byte_compile_python = true
+
+# <meta-data> entries inside <application>
+# [tool.kivy-school.android.meta_data]
+# "com.google.android.gms.ads.APPLICATION_ID" = "ca-app-pub-xxxxxxxx~xxxxxxxx"
+
+# --- Services ---
+# [[tool.kivy-school.android.services]]
+# name = "MyService1"
+# start_type = "START_NOT_STICKY"
+# entrypoint = "hello_world.services.myservice1"
+# foreground = true
+# foreground_service_type = "location|dataSync"
+# notification_title = "MyService1 Running"
+# notification_text = "Service is managing background data."
+# notification_icon = "stat_notify_sync"
+
+[tool.kivy-school.ios]
+bundle_id = "com.novfensec.nfsbrowser"
+minimum_deployment = "15.6"
+info_plist = {}
+entitlements = {}
+permissions = []
+frameworks = []
+#developer_team = "ABC123XYZ" # Set to your Apple Developer Team ID (e.g. ABC123XYZ) to enable automatic code signing; leave as null for manual signing
+# pre_build = "path/to/ios_prebuild.py"
+# post_build = "path/to/ios_postbuild.py"
+
+[tool.kivy-school.macos]
+bundle_id = "com.novfensec.nfsbrowser"
+minimum_deployment = "11.5"
+info_plist = {}
+entitlements = {}
+#developer_team = "ABC123XYZ" # Set to your Apple Developer Team ID (e.g. ABC123XYZ) to enable automatic code signing; leave as null for manual signing
+# pre_build = "path/to/android_prebuild.py"
+# post_build = "path/to/android_postbuild.py"
+

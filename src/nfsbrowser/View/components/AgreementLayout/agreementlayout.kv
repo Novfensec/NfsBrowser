@@ -1,0 +1,118 @@
+#: import terms_text data.agreement.terms_text
+#: import privacy_text data.agreement.privacy_text
+#: import Window kivy.core.window.Window
+
+<AgreementLayout>:
+    anchor_x: "right"
+    anchor_y: "top"
+    bg_color: app.background
+
+    CBoxLayout:
+        padding: dp(16)
+        spacing: dp(16)
+        orientation: "vertical"
+
+        CBoxLayout:
+            adaptive: [True, True]
+            spacing: dp(16)
+            pos_hint: {"center_x": 0.5}
+
+            CIconCircular:
+                icon: "blank"
+                bg_source: "data/nfswebview64.png"
+                font_size: dp(32)
+                radius: dp(8)
+                line_color: [0, 0, 0, 1]
+                line_width: dp(2)
+
+            CLabel:
+                text: "Nfs Browser"
+                style: "heading_04"
+                halign: "center"
+                adaptive: [True, True]
+
+        CTabHeader:
+            tab_manager: tab_manager
+            CTabHeaderItem:
+                primary_text: "Terms of service"
+                icon: "document--signed"
+                name_tab: "termsofservice"
+                default: True
+            
+            CTabHeaderItem:
+                primary_text: "Privacy policy"
+                icon: "document--signed"
+                name_tab: "privacypolicy"
+
+        CTabManager:
+            id: tab_manager
+
+            CTab:
+                name: "termsofservice"
+
+                CTabLayout:
+                    size_hint: 1, 1
+
+                    ElasticScrollView:
+                        size_hint: 1, 0.9
+                        do_scroll_x: False
+
+                        CLabel:
+                            markup: True
+                            text: str(terms_text)
+                            adaptive: [False, True]
+
+                CBoxLayout:
+                    adaptive: [False, True]
+                    spacing: dp(16)
+                    padding: [0, dp(16)]
+                    bg_color: app.background
+
+                    CCheckbox:
+                        id: tagree_checkbox
+                        size: dp(24), dp(24)
+
+                    CLabel:
+                        text: "I agree to the terms of service."
+                        style: "body_02"
+                        pos_hint: {"center_y": 0.5}
+
+            CTab:
+                name: "privacypolicy"
+
+                CTabLayout:
+                    size_hint: 1, 1
+
+                    ElasticScrollView:
+                        size_hint: 1, 0.8
+                        do_scroll_x: False
+
+                        CLabel:
+                            markup: True
+                            text: str(privacy_text)
+                            adaptive: [False, True]
+
+                CBoxLayout:
+                    adaptive: [False, True]
+                    spacing: dp(16)
+                    padding: [0, dp(16)]
+                    bg_color: app.background
+
+                    CCheckbox:
+                        id: pagree_checkbox
+                        size: dp(24), dp(24)
+
+                    CLabel:
+                        text: "I agree to the privacy policy."
+                        style: "body_02"
+                        pos_hint: {"center_y": 0.5}
+
+        CButtonPrimary:
+            text: "Continue"
+            cstate: "normal" if (tagree_checkbox.active and pagree_checkbox.active) else "disabled"
+            role: "Large Productive"
+            icon: "arrow--right"
+            pos_hint: {"right": 1.0}
+            on_press:
+                app.accept_agreement(tagree_checkbox.active, pagree_checkbox.active)
+                Window.remove_widget(root)

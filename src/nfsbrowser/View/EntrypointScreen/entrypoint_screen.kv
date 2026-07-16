@@ -1,0 +1,71 @@
+<EntrypointScreenView>:
+
+    CRelativeLayout:
+        size_hint: 1, 1
+        spacing: dp(8)
+
+        UI:
+            id: manager_screens
+
+            HomeScreen:
+                name: "home"
+                manager_screens: manager_screens
+
+            WebviewScreen:
+                name: "webview"
+                manager_screens: manager_screens
+
+            ProfileScreen:
+                name: "profile"
+                manager_screens: manager_screens
+
+            SettingsScreen:
+                name: "settings"
+                manager_screens: manager_screens
+
+        CTabHeaderCircular:
+            tab_manager: manager_screens
+            adaptive: [True, True]
+            pos_hint: {"center_x": 0.5}
+            pos: self.pos[0], dp(16)
+            spacing: dp(8)
+            padding: [dp(32), dp(4)]
+            radius: self.height/2
+            bg_color: app.background
+            allow_no_selection: True
+
+            UIShellButton:
+                icon: "arrow--left"
+                font_size: plex_14
+                adaptive: [True, True]
+                on_press:
+                    root.go_back()
+
+            UIShellButton:
+                icon: "arrow--right"
+                font_size: plex_14
+                adaptive: [True, True]
+                    app.current_webview.go_forward()
+
+            CTabHeaderItem:
+                icon: "home"
+                icon_size: plex_18
+                adaptive: [True, True]
+                name_tab: "home"
+                selected: True if manager_screens.current == "home" else False
+                on_press:
+                    app.current_webview.go_home()
+
+            UIShellButton:
+                icon: "restart"
+                font_size: plex_14
+                adaptive: [True, True]
+                on_press:
+                    app.current_webview.reload()
+
+            CTabHeaderItem:
+                icon: "settings"
+                icon_size: plex_18
+                adaptive: [True, True]
+                name_tab: "settings"
+                selected: True if manager_screens.current == "settings" else False

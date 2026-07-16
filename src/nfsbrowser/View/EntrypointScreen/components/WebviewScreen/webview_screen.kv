@@ -1,0 +1,35 @@
+<WebviewScreen>:
+    bg_color: app.background
+    CStackLayout:
+        size_hint: 1, 1
+
+        CBoxLayout:
+            padding: dp(16)
+            spacing: dp(16)
+            adaptive: [False, True]
+
+            AsyncImage:
+                source: f"{root.icon}"
+                size_hint: None, None
+                opacity: 1 if self.texture else 0
+                size: dp(28), dp(28)
+                pos_hint: {"center_y": 0.5}
+
+            CLabelNeutral:
+                text: f"{root.url}"
+                pos_hint: {"center_y": 0.5}
+
+        ProgressDivider:
+            canvas.after:
+                Color:
+                    rgba: app.transparent if self.progressive_width == self.width else app.interactive
+                Line:
+                    width: dp(1)
+                    cap: "square"
+                    points: [self.x, self.y, self.progressive_width, self.y]
+            progressive_width: int(root.progress) * self.width
+
+        CBoxLayout:
+            id: webview_layout
+            bg_color: app.layer_01
+            size_hint: 1, 0.8

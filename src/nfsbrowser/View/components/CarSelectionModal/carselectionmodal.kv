@@ -1,0 +1,84 @@
+<CarSelectionModal>:
+    size_hint_y: 0.7
+    width: dp(576)
+
+    CModalLayout:
+        id: modal_layout
+        size_hint_y: 1
+
+        CModalHeader:
+            id: header
+
+            CModalHeaderTitle:
+                text: "Selection modal"
+
+        CModalBody:
+            id: body
+            size_hint: 1, 0.8
+
+            CModalBodyContent:
+                id: content
+                text: "This is the selection modal. You can select any one of the registered cars here."
+
+
+            CTabLayout:
+                size_hint: 1, 1
+                padding: 0
+
+                CTabManager:
+                    id: tab_manager
+                    size_hint: 1, 1
+
+                    CTab:
+                        name: "t1"
+
+                        ElasticScrollView:
+                            do_scroll_x: False
+
+                            UIShellPanelSelectionLayout:
+                                id: list_cars
+                                orientation: "vertical"
+                                adaptive: [False, True]
+                                spacing: dp(16)
+                                padding: [0, dp(48), 0, dp(48)]
+                                on_selected_items:
+                                    self._line_color = app.transparent
+
+                    CTab:
+                        name: "t2"
+
+                        ElasticScrollView:
+                            do_scroll_x: False
+
+                            UIShellPanelSelectionLayout:
+                                id: list_categories
+                                orientation: "vertical"
+                                adaptive: [False, True]
+                                spacing: dp(16)
+                                padding: [0, dp(48), 0, dp(48)]
+                                selection_type: "Multiple"
+
+        CModalFooter:
+            id: footer
+
+            CGridLayout:
+                cols: 2
+                adaptive: [False, True]
+                spacing: dp(1)
+
+                CButtonSecondary:
+                    text: "Cancel"
+                    role: "Extra Large"
+                    size_hint_x: 1
+                    on_press:
+                        root.dismiss()
+
+                CButtonPrimary:
+                    text: "Next" if tab_manager.current == "t1" else "Select"
+                    icon: "chevron--right" if tab_manager.current == "t1" else "checkmark"
+                    role: "Extra Large"
+                    size_hint_x: 1
+                    on_press:
+                        root.progress()
+
+    CModalCloseButton:

@@ -1,0 +1,67 @@
+<HomeScreen>:
+
+    GradientLayout:
+        gradient_color_top: app.background
+        gradient_color_bottom: app.support_success
+        gradient_linear_bounds: [0.0, 1.0]
+        gradient_animated: True
+        gradient_speed: 1
+        gradient_wave_height: 0.2
+        gradient_wave_count: 1
+        gradient_type: "radial"
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            SmoothRoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: root.radius
+        size_hint: 1, 1
+
+    CStackLayout:
+        size_hint: [1, 1]
+        padding: dp(16)
+        spacing: dp(32)
+        bg_color: app.transparent
+
+        CTextInputLayoutCircular:
+            id: searchinput
+            radius: self.height/2
+            bg_color_focus: app.layer_hover_01
+            line_color_focus: app.transparent
+
+            ActiveButton:
+                id: engine_icon
+                icon: "blank"
+                icon_source: "assets/google-logo64.png"
+                font_size: dp(28)
+                pos_hint: {"center_y": 0.5}
+                pos: dp(4), self.pos[1]
+
+            FixedTextInput:
+                id: search_input
+                -baseline_color: app.transparent
+                size_hint_x: None
+                width: root.width - engine_icon.width - trailing_btn.width - dp(40)
+                pos: engine_icon.width + dp(4), self.pos[1]
+                pos_hint: {"center_y": 0.5}
+                multiline: False
+                padding: [dp(4), dp(14)]
+                hint_text: "Search"
+                font_size: sp(14)
+                input_type: "url"
+                on_text_validate:
+                    app.search(self.text)
+                    root.manager_screens.current = "webview" if len(self.text.replace(" ", "").strip()) >= 1 else None
+                    self.text = ""
+
+            CTextInputTrailingIconButton:
+                id: trailing_btn
+                icon: "search"
+                role: "Medium"
+                pos_hint: {"center_y": 0.5}
+                pos: searchinput.width - self.width - dp(4), self.pos[1]
+                on_press:
+                    app.search(search_input.text)
+                    root.manager_screens.current = "webview" if len(search_input.text.replace(" ", "").strip()) >= 1 else None    
+                    search_input.text = ""
