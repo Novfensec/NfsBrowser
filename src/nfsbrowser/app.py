@@ -258,21 +258,20 @@ class NfsBrowser(CarbonApp):
         if not url.startswith(('http://', 'https://', 'file://', 'ftp://')):
             url = f"https://{url}"
         if self.current_webview:
-            self.current_webview.load_url(url)
+            Clock.schedule_once(lambda dt: self.current_webview.load_url(url), 0.15)
         print(f"[ACTION] Navigating directly to URL: {url}")
 
     def _execute_standard_search(self, query: str) -> None:
         url = f"https://www.google.com/search?q={quote_plus(query)}"
         if self.current_webview:
-            self.current_webview.load_url(url)
+            Clock.schedule_once(lambda dt: self.current_webview.load_url(url), 0.15)
         print(f"[ACTION] Executing standard text search for: '{query}'")
 
     def _execute_advanced_search(self, query: str) -> None:
         url = f"https://www.google.com/search?q={quote_plus(query)}"
         if self.current_webview:
-            self.current_webview.load_url(url)
+            Clock.schedule_once(lambda dt: self.current_webview.load_url(url), 0.15)
         print(f"[ACTION] Executing advanced text search for: '{query}'")
-        # Logic to parse boolean operators or exact quotes goes here
 
     def _handle_empty_input(self) -> None:
         print("[ACTION] Ignored: Input is empty or invalid.")

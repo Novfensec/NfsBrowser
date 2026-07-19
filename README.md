@@ -11,6 +11,8 @@ NfsBrowser bypasses standard framework limitations by seamlessly bridging a high
   <img src="assets/overview.png" alt="NfsBrowser Screenshots" width="100%">
 </p>
 
+<!-- GitAds-Verify: KIO8YZI9QZKHK2HDM7J36GXCFNS69DNZ -->
+
 ## Key Features
 
 * **Custom Native Engine (`nfswebview`):** The heavy lifting (rendering, caching, downloading) is executed entirely in optimized Java, bridged asynchronously to Kivy via Pyjnius to ensure the Python UI never blocks the Android main thread.
