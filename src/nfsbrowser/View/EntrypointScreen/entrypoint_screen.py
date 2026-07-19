@@ -1,5 +1,6 @@
 from typing import Any
 
+from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.utils import platform
 from kivy.properties import ObjectProperty
@@ -49,8 +50,36 @@ class EntrypointScreenView(BaseScreenView):
         return False
 
     def go_back(self, *args) -> None:
+        Window.release_all_keyboards()
+        Clock.schedule_once(self._execute_safe_go_back, 0.15)
+
+    def _execute_safe_go_back(self, dt) -> None:
         if self.app.current_webview.url == "about:blank":
             self.ids.manager_screens.current = "home"
             self.app.current_webview.go_home()
         else:
             self.app.current_webview.go_back()
+
+    def go_forward(self, *args) -> None:
+        Window.release_all_keyboards()
+        Clock.schedule_once(self._execute_safe_go_forward, 0.15)
+
+    def _execute_safe_go_forward(self, dt) -> None:
+        if self.app.current_webview:
+            self.app.current_webview.go_forward()
+
+    def go_home(self, *args) -> None:
+        Window.release_all_keyboards()
+        Clock.schedule_once(self._execute_safe_go_home, 0.15)
+
+    def _execute_safe_go_home(self, dt) -> None:
+        if self.app.current_webview:
+            self.app.current_webview.go_home()
+
+    def reload(self, *args) -> None:
+        Window.release_all_keyboards()
+        Clock.schedule_once(self._execute_safe_reload, 0.15)
+
+    def _execute_safe_reload(self, dt) -> None:
+        if self.app.current_webview:
+            self.app.current_webview.reload()
