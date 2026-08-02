@@ -52,7 +52,7 @@ bootstrap = "kivy"
 package_name = "com.novfensec.nfsbrowser"
 
 # version_name = "0.1" # change when you want to release a very new version
-version_code = 3 # keep increasing to make an update to existing version_name (bug fixes/security releases)
+version_code = 10 # keep increasing to make an update to existing version_name (bug fixes/security releases)
 
 icon = "src/nfsbrowser/data/nfswebview512.png"
 presplash_color = "#000000"
