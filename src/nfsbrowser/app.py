@@ -29,7 +29,7 @@ from carbonkivy.utils import update_system_ui
 from kivy.clock import Clock, mainthread
 from kivy.core.window import Window
 from kivy.logger import Logger
-from kivy.properties import ObjectProperty, DictProperty
+from kivy.properties import ObjectProperty, DictProperty, StringProperty
 from kivy.resources import resource_add_path
 
 from View.base_screen import BanLayout, LoadingLayout
@@ -38,6 +38,7 @@ from View.components.AgreementLayout import AgreementLayout
 from Model.application_layer_model import ApplicationLayerModel
 
 from libs.confighandler import config_handler
+from libs import REFS
 
 Clock.max_iteration = 60
 
@@ -48,6 +49,12 @@ def set_softinput(*args) -> None:
 
 
 Window.on_restore(Clock.schedule_once(set_softinput, 0.1))
+
+
+SQueries = {
+    "google": "https://www.google.com/search?q=",
+    "bing": "https://www.bing.com/search?q=",
+}
 
 
 class UI(CScreenManager):
@@ -67,6 +74,10 @@ class NfsBrowser(CarbonApp):
 
     tabs = DictProperty()
 
+    current_se = StringProperty()
+
+    se_source = StringProperty()
+
     def __init__(self, *args, **kwargs):
         self.defaults = False
         self.theme = config_handler.get("theme", "White")
@@ -77,6 +88,9 @@ class NfsBrowser(CarbonApp):
         self.notification = CNotificationToast()
         self.ban_layout = BanLayout()
         self.view_model = ApplicationLayerModel()
+
+    def on_current_se(self, *args) -> None:
+        self.se_source = REFS.get(self.current_se, "")
 
     def on_theme(self, *args) -> None:
         config_handler.update({"theme": self.theme})
@@ -262,13 +276,13 @@ class NfsBrowser(CarbonApp):
         print(f"[ACTION] Navigating directly to URL: {url}")
 
     def _execute_standard_search(self, query: str) -> None:
-        url = f"https://www.google.com/search?q={quote_plus(query)}"
+        url = f"{SQueries[self.current_se]}{quote_plus(query)}"
         if self.current_webview:
             Clock.schedule_once(lambda dt: self.current_webview.load_url(url), 0.15)
         print(f"[ACTION] Executing standard text search for: '{query}'")
 
     def _execute_advanced_search(self, query: str) -> None:
-        url = f"https://www.google.com/search?q={quote_plus(query)}"
+        url = f"{SQueries[self.current_se]}{quote_plus(query)}"
         if self.current_webview:
             Clock.schedule_once(lambda dt: self.current_webview.load_url(url), 0.15)
         print(f"[ACTION] Executing advanced text search for: '{query}'")

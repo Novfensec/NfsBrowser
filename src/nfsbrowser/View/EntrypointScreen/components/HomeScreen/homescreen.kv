@@ -1,3 +1,5 @@
+#: import REFS libs.REFS
+
 <HomeScreen>:
 
     GradientLayout:
@@ -33,10 +35,12 @@
             ActiveButton:
                 id: engine_icon
                 icon: "blank"
-                icon_source: "assets/google-logo64.png"
+                icon_source: app.se_source
                 font_size: dp(28)
                 pos_hint: {"center_y": 0.5}
                 pos: dp(4), self.pos[1]
+                on_press:
+                    root.se_dropdown.visibility = self.focus
 
             FixedTextInput:
                 id: search_input
@@ -65,3 +69,47 @@
                     app.search(search_input.text)
                     root.manager_screens.current = "webview" if len(search_input.text.replace(" ", "").strip()) >= 1 else None    
                     search_input.text = ""
+
+<SEDropdown>:
+    orientatiion: "vertical"
+    adaptive: [False, True]
+    size_hint_x: None
+    width: dp(288)
+    spacing: dp(16)
+    padding: [dp(16)]
+    
+    SEOption:
+        source: "assets/google-logo64.png"
+        title: "Google"
+
+    SEOption:
+        source: "assets/bing-logo64.png"
+        title: "Bing"
+
+
+<SEOption>:
+    canvas.after:
+        Color:
+            rgba: app.interactive if self.selected else app.transparent
+        Line:
+            width: dp(1)
+            cap: "square"
+            points: [self.x + dp(1), self.y + dp(4), self.x + dp(1), self.top - dp(4)]
+
+    adaptive: [False, True]
+    padding: [dp(32), dp(8)]
+    spacing: dp(16)
+    bg_color: app.layer_02 if self.selected else app.transparent
+    on_press:
+        self.selected = not self.selected
+        app.current_se = self.title.lower()
+
+    CIcon:  
+        bg_source: root.source
+        size_hint: None, None
+        size: sp(28), sp(28)
+        pos_hint: {"center_y": 0.5}
+
+    CLabel:
+        text: root.title
+        pos_hint: {"center_y": 0.5}

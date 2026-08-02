@@ -16,9 +16,10 @@
                 fit_mode: "cover"
                 pos_hint: {"center_y": 0.5}
 
-            CLabelNeutral:
+            FixedTextInput:
                 text: f"{root.url}"
                 pos_hint: {"center_y": 0.5}
+                multiline: False
 
         ProgressDivider:
             canvas.after:

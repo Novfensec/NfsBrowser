@@ -37,7 +37,7 @@ class EntrypointScreenView(BaseScreenView):
         Window.bind(on_keyboard=self.on_key_press)
 
     def on_key_press(self, window, key, scancode, codepoint, modifier):
-        if key in (27, 8):
+        if key == 27:
             if self.manager_screens.current != "entrypoint screen":
                 self.manager_screens.current = "entrypoint screen"
                 return True
@@ -54,10 +54,7 @@ class EntrypointScreenView(BaseScreenView):
         Clock.schedule_once(self._execute_safe_go_back, 0.15)
 
     def _execute_safe_go_back(self, dt) -> None:
-        if self.app.current_webview.url == "about:blank":
-            self.ids.manager_screens.current = "home"
-            self.app.current_webview.go_home()
-        else:
+        if self.app.current_webview:
             self.app.current_webview.go_back()
 
     def go_forward(self, *args) -> None:
