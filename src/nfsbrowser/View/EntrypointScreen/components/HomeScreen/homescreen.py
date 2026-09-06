@@ -1,4 +1,4 @@
-
+from kivy.clock import Clock
 from kivy.properties import StringProperty
 from kivy.uix.behaviors import ButtonBehavior
 
@@ -33,13 +33,12 @@ class SEOption(ButtonBehavior, RoundedBoxLayout, SelectableBehavior):
 
     def on_kv_post(self, base_widget):
         super().on_kv_post(base_widget)
-        self.selected = (self.title.lower() == config_handler.get("search_engine"))
+        self.selected = self.title.lower() == config_handler.get("search_engine")
 
     def on_selected(self, *args) -> None:
         if self.selected:
             config_handler.update({"search_engine": self.title.lower()})
 
-from kivy.clock import Clock
 
 class FixedTextInput(CTextInput):
 
@@ -47,7 +46,6 @@ class FixedTextInput(CTextInput):
         super().__init__(**kwargs)
 
     def on_text(self, instance, value):
-        super().on_text(instance, value)
         if not self.focus:
             Clock.schedule_once(self._reset_cursor_to_start, 0)
 
@@ -115,8 +113,8 @@ class HomeScreen(BaseScreenView):
     def __init__(self, *args, **kwargs) -> None:
         super(HomeScreen, self).__init__(*args, **kwargs)
         self.se_dropdown = SEDropdown()
-        self.current_se = config_handler.get("search_engine")
-        self.app.current_se = config_handler.get("search_engine")
+        self.current_se = config_handler.get("search_engine", "google")
+        self.app.current_se = config_handler.get("search_engine", "google")
 
     def on_kv_post(self, base_widget):
         self.se_dropdown.master = self.ids.engine_icon
