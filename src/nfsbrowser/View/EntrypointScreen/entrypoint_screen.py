@@ -41,7 +41,11 @@ class EntrypointScreenView(BaseScreenView):
             if self.manager_screens.current != "entrypoint screen":
                 self.manager_screens.current = "entrypoint screen"
                 return True
-            elif self.app.current_webview and self.app.current_webview.can_go_back() and self.ids.manager_screens.get_screen("webview").url != "about:blank":
+            elif (
+                self.app.current_webview
+                and self.app.current_webview.can_go_back()
+                and self.ids.manager_screens.get_screen("webview").url != "about:blank"
+            ):
                 self.go_back()
                 return True
             elif self.ids.manager_screens.current != "home":

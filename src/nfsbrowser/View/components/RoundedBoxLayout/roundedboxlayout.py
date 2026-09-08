@@ -8,7 +8,7 @@ from carbonkivy.behaviors import (
     AdaptiveBehavior,
     BackgroundColorBehaviorCircular,
     DeclarativeBehavior,
-    ElevationBehavior
+    ElevationBehavior,
 )
 
 
@@ -17,6 +17,6 @@ class RoundedBoxLayout(
     BackgroundColorBehaviorCircular,
     BoxLayout,
     DeclarativeBehavior,
-    ElevationBehavior
+    ElevationBehavior,
 ):
     pass

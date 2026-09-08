@@ -1,5 +1,11 @@
 import os
 import sys
+
+os.environ["KIVY_GL_BACKEND"] = "gl"
+
+from kivy.config import Config
+Config.set("graphics", "maxfps", "0")
+
 from kivy.resources import resource_add_path
 
 sys.path.insert(0, os.path.dirname(__file__))
@@ -84,9 +90,9 @@ class NfsBrowser(CarbonApp):
         super(NfsBrowser, self).__init__(*args, **kwargs)
         self.load_all_kv_files(os.path.join(self.directory, "View"))
         self.manager_screens = UI()
-        self.loading_layout = LoadingLayout()
-        self.notification = CNotificationToast()
-        self.ban_layout = BanLayout()
+        self.loading_layout = None
+        self.notification = None
+        self.ban_layout = None
         self.view_model = ApplicationLayerModel()
 
     def on_current_se(self, *args) -> None:
@@ -104,12 +110,22 @@ class NfsBrowser(CarbonApp):
             self.background, self.background, icon_style=icon_style, pad_nav=True
         )
 
+    def _init_ui_elements(self):
+        if self.loading_layout is None:
+            self.loading_layout = LoadingLayout()
+        if self.notification is None:
+            self.notification = CNotificationToast()
+        if self.ban_layout is None:
+            self.ban_layout = BanLayout()
+
     def build(self) -> UI:
+        self._init_ui_elements()
         self.main_screen = MainScreen(name="main screen")
         self.apply_styles()
         return self.main_screen
 
     def build_app(self) -> UI:
+        self._init_ui_elements()
         self.main_screen = MainScreen(name="main screen")
         self.apply_styles()
         return self.main_screen
@@ -237,7 +253,7 @@ class NfsBrowser(CarbonApp):
         if not text or not isinstance(text, str) or not text.strip():
             self._handle_empty_input()
             return
-            
+
         query = text.strip()
 
         if len(query) > 2048:
@@ -256,7 +272,7 @@ class NfsBrowser(CarbonApp):
 
     def _is_url(self, text: str) -> bool:
         """
-        Determines if a string is a likely URL. 
+        Determines if a string is a likely URL.
         Catches explicit (http://) and implicit (example.com) URLs.
         """
         parsed = urlparse(text)
@@ -264,12 +280,12 @@ class NfsBrowser(CarbonApp):
             return True
 
         url_pattern = re.compile(
-            r'^(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{2,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$'
+            r"^(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{2,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$"
         )
         return bool(url_pattern.match(text))
 
     def _navigate_to_url(self, url: str) -> None:
-        if not url.startswith(('http://', 'https://', 'file://', 'ftp://')):
+        if not url.startswith(("http://", "https://", "file://", "ftp://")):
             url = f"https://{url}"
         if self.current_webview:
             Clock.schedule_once(lambda dt: self.current_webview.load_url(url), 0.15)
@@ -292,6 +308,7 @@ class NfsBrowser(CarbonApp):
 
     def _handle_error(self, message: str) -> None:
         print(f"[ERROR] {message}")
+
 
 def main(*args) -> None:
     app = NfsBrowser()

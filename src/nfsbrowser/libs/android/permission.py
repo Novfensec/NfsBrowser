@@ -25,6 +25,7 @@ else:
         ]
     )
 
+
 @run_on_ui_thread
 def request_android_permissions(
     requested_permissions: list = required_permissions,
@@ -32,9 +33,7 @@ def request_android_permissions(
     print("Asking For Permissions")
 
     def callback(permissions, results):
-        granted_permissions = [
-            perm for perm, res in zip(permissions, results) if res
-        ]
+        granted_permissions = [perm for perm, res in zip(permissions, results) if res]
         denied_permissions = [
             perm for perm, res in zip(permissions, results) if not res
         ]
@@ -49,6 +48,7 @@ def request_android_permissions(
             print("No permissions were granted or denied.")
 
     request_permissions(requested_permissions, callback)
+
 
 def is_permission_granted(permissions: list[str]) -> bool:
     """

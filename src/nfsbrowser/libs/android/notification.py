@@ -36,7 +36,9 @@ def create_notification_channel():
 def send_notification(title, body, img_path=None):
     builder = NotificationCompatBuilder(service, "ch1")
     builder.setSmallIcon(
-        service.getResources().getIdentifier("ic_launcher", "mipmap", service.getPackageName())
+        service.getResources().getIdentifier(
+            "ic_launcher", "mipmap", service.getPackageName()
+        )
     )
     builder.setContentTitle(title)
     builder.setContentText(body)
