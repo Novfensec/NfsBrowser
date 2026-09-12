@@ -1,4 +1,3 @@
-
 # NfsBrowser
 
 NfsBrowser is a light-weight browser application in Python using Kivy, CarbonKivy and NfsWebview. 
