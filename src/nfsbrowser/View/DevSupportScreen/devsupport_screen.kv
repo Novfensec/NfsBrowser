@@ -1,3 +1,5 @@
+#:import Clipboard kivy.core.clipboard.Clipboard
+
 <DevSupportScreenView>:
 
     CStackLayout:
@@ -71,10 +73,14 @@
                     CTextInputLayoutCircular:
                         bg_color: app.layer_02
                         CTextInput:
+                            id: text_input
                             text: "0x841f179e0D91dc91059525f18D218cdeB0DB5E07"
                             readonly: True
                         CTextInputTrailingIconButton:
                             icon: "copy"
+                            on_press:
+                                Clipboard.copy(text_input.text)
+
                         CTextInputLabel:
                             text: "Ethereum wallet address"
                         CTextInputHelperText:

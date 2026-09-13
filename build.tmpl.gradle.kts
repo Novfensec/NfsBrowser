@@ -11,9 +11,7 @@ android {
 {{ app_id_lines }}        minSdk = {{ min_sdk }}
         targetSdk = {{ target_sdk }}
 
-        ndk {
-            abiFilters += setOf({{ abi_filters }})
-        }
+{{ ndk_abi_block }}
 
         externalNativeBuild {
             cmake {
@@ -55,11 +53,8 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    sourceSets {
-        getByName("main") {
-            assets.srcDir(layout.buildDirectory.dir("generated/python_assets").get().asFile)
-        }
-    }
+{{ flavor_block }}
+{{ source_sets_block }}
 
     // CPython stdlib and packages contain underscore-prefixed directories
     // (e.g. zipfile/_path) that AGP's default aapt ignore pattern strips.

@@ -227,11 +227,10 @@ uv.lock
 # kivyschool
 project_dist/
 .kivyschool
+# wheelhouse/
 
 # Java keystores
 *.jks
 
 # Android
 google-services.json
-
-.vscode
