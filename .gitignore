@@ -234,3 +234,5 @@ project_dist/
 
 # Android
 google-services.json
+
+.vscode/
