@@ -4,7 +4,7 @@
 
     GradientLayout:
         gradient_color_top: app.background
-        gradient_color_bottom: app.support_success
+        gradient_color_bottom: app.gray_30 if app.theme in ["White", "Gray10"] else app.gray_80
         gradient_linear_bounds: [0.0, 1.0]
         gradient_animated: True
         gradient_speed: 1

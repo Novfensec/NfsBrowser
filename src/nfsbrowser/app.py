@@ -1,11 +1,11 @@
 import os
 import sys
 
-if sys.platform == "android":
-    os.environ["KIVY_GL_BACKEND"] = "gl"
+# if sys.platform == "android":
+#     os.environ["KIVY_GL_BACKEND"] = "gl"
 
-from kivy.config import Config
-Config.set("graphics", "maxfps", "0")
+# from kivy.config import Config
+# Config.set("graphics", "maxfps", "0")
 
 from kivy.resources import resource_add_path
 
