@@ -4,6 +4,13 @@ NfsBrowser is a light-weight browser application in Python using Kivy, CarbonKiv
 
 NfsBrowser bypasses standard framework limitations by seamlessly bridging a highly customizable Python frontend with Android’s native Java WebView engine via a custom module (`nfswebview`). It delivers a truly native mobile experience featuring flawless full-screen video, advanced download management, intelligent deep linking, and dynamic UI theming.
 
+> [!NOTE]
+> Help complete the closed testing program on google play by following simple steps:
+> 
+> - Join the google group: https://groups.google.com/g/nfsbrowser
+> - Join the testing program: https://play.google.com/apps/testing/com.novfensec.nfsbrowser
+> - Install from playstore: https://play.google.com/store/apps/details?id=com.novfensec.nfsbrowser
+
 ## GitAds Sponsored
 <!-- GitAds-Verify: KIO8YZI9QZKHK2HDM7J36GXCFNS69DNZ -->
 [![Sponsored by GitAds](https://gitads.dev/v1/ad-serve?source=novfensec/nfsbrowser@github)](https://gitads.dev/v1/ad-track?source=novfensec/nfsbrowser@github)
