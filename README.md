@@ -11,10 +11,6 @@ NfsBrowser bypasses standard framework limitations by seamlessly bridging a high
 > - Join the testing program: https://play.google.com/apps/testing/com.novfensec.nfsbrowser
 > - Install from playstore: https://play.google.com/store/apps/details?id=com.novfensec.nfsbrowser
 
-## GitAds Sponsored
-<!-- GitAds-Verify: KIO8YZI9QZKHK2HDM7J36GXCFNS69DNZ -->
-[![Sponsored by GitAds](https://gitads.dev/v1/ad-serve?source=novfensec/nfsbrowser@github)](https://gitads.dev/v1/ad-track?source=novfensec/nfsbrowser@github)
-
 ## Overview
 
 <p align="center">
